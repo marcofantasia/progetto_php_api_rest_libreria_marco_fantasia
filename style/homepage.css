@@ -1,0 +1,82 @@
+body{
+    background-color: #d7d4ec;
+}
+
+.navbar{
+background-color: #102190;
+}
+
+h1{
+    color:#102190
+}
+
+.nav-link{
+    color: #d7d4ec;
+}
+
+.nav-item{
+    color: #d7d4ec;
+}
+
+.navbar-brand{
+    color: #d7d4ec;
+}
+
+p{
+    color: #102190;
+}
+
+
+.footer-sotto{
+    background-color: #102190;
+}
+
+th{
+    color: #102190;
+    
+}
+
+
+
+label{
+    color: #102190;
+}
+
+.btn-register{
+background-color: #d7d4ec;
+color: #102190;
+margin-right: 50px;
+}
+.btn-login{
+    background-color: #d7d4ec;
+    color: #102190;
+}
+
+.bottone{
+    background-color: #102190;
+    color: #d7d4ec;
+}
+
+.parte-finale{
+    background-color: #102190;
+    color: #d7d4ec;
+}
+
+.navbar-toggler{
+    background-color: #d7d4ec;
+}
+
+.navbar-toggler-collapse{
+    color: #102190;
+}
+
+.form-control{
+    border-color: #102190;
+    background-color: white;
+}
+
+
+.btn-reg{
+    background-color: #102190;
+    color: #d7d4ec;
+}
