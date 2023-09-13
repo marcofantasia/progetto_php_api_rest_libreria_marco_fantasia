@@ -1,5 +1,5 @@
 <?php
-// Connessione al database
+
 $host = "localhost";
 $db_name = "libreria";
 $username = "root";
@@ -12,7 +12,7 @@ try {
     die("Errore di connessione al database: " . $e->getMessage());
 }
 
-// Query per eliminare la tabella 'libri' se esiste
+
 $drop_libri_table_query = "DROP TABLE IF EXISTS libri";
 
 try {
@@ -22,7 +22,7 @@ try {
     echo "Errore durante l'eliminazione della tabella 'libri': " . $e->getMessage();
 }
 
-// Query per creare nuovamente la tabella 'libri'
+
 $create_libri_table_query = "
     CREATE TABLE libri (
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -39,7 +39,7 @@ try {
     echo "Errore durante la creazione della tabella 'libri': " . $e->getMessage();
 }
 
-// Query per eliminare la tabella 'utenti' se esiste
+
 $drop_utenti_table_query = "DROP TABLE IF EXISTS utenti";
 
 try {
@@ -49,7 +49,7 @@ try {
     echo "Errore durante l'eliminazione della tabella 'utenti': " . $e->getMessage();
 }
 
-// Query per creare nuovamente la tabella 'utenti'
+
 $create_utenti_table_query = "
     CREATE TABLE utenti (
         id INT AUTO_INCREMENT PRIMARY KEY,

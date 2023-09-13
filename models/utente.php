@@ -1,32 +1,26 @@
 <?php
-class Utente {
+class Utente
+{
     private $conn;
-    private $table_name = "utenti";
 
-    public $id;
-    public $nome;
-    public $cognome;
-    public $email;
-    public $password;
-
-    public function __construct($db) {
+    public function __construct($db)
+    {
         $this->conn = $db;
     }
 
-    
-    function registrazione() {
-        $query = "INSERT INTO " . $this->table_name . " (nome, cognome, email, password) VALUES (?, ?, ?)";
+    // Metodo per la registrazione dell'utente
+    public function register($nome, $cognome, $email, $password)
+    {
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+        $query = "INSERT INTO utenti (nome, cognome, email, password) VALUES (:nome, :cognome, :email, :password)";
         $stmt = $this->conn->prepare($query);
 
-        
-        $hashed_password = password_hash($this->password, PASSWORD_BCRYPT);
+        $stmt->bindParam(":nome", $nome);
+        $stmt->bindParam(":cognome", $cognome);
+        $stmt->bindParam(":email", $email);
+        $stmt->bindParam(":password", $hashed_password);
 
-        
-        $stmt->bindParam(1, $this->email);
-        $stmt->bindParam(2, $hashed_password);
-        $stmt->bindParam(3, $this->email);
-
-        
         if ($stmt->execute()) {
             return true;
         } else {
@@ -34,35 +28,37 @@ class Utente {
         }
     }
 
-    
-    function login() {
-        $query = "SELECT id, nome, cognome, email, password FROM " . $this->table_name . " WHERE email = ? LIMIT 0,1";
+    // Metodo per il login dell'utente
+    public function login($email, $password)
+    {
+        $query = "SELECT id, nome, password FROM utenti WHERE email = :email";
         $stmt = $this->conn->prepare($query);
 
-        
-        $stmt->bindParam(1, $this->email);
-        
-       
+        $stmt->bindParam(":email", $email);
         $stmt->execute();
 
-      
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        if ($row && password_verify($this->password, $row['password'])) {
-           
-            session_start();
-            $_SESSION['user_id'] = $row['id'];
-            return true;
+
+        if ($stmt->rowCount() > 0) {
+            $id = $row['id'];
+            $nome = $row['nome'];
+            $hashed_password = $row['password'];
+
+            if (password_verify($password, $hashed_password)) {
+                return array("id" => $id, "nome" => $nome);
+            } else {
+                return false; // Password non corretta
+            }
         } else {
-            return false;
+            return false; // Utente non trovato
         }
     }
 
-    
-    function logout() {
-        
+    // Metodo per il logout dell'utente
+    public function logout()
+    {
         session_start();
         session_destroy();
-        return true;
     }
 }
 ?>

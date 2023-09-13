@@ -1,3 +1,62 @@
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Connessione al database (sostituisci con le tue credenziali)
+    try {
+        $pdo = new PDO('mysql:host=localhost;dbname=libreria', 'root', 'rootroot');
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    } catch (PDOException $e) {
+        echo 'Errore di connessione al database: ' . $e->getMessage();
+        exit();
+    }
+
+    // Dati inviati dal modulo
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    // Query SQL per trovare l'utente
+    $sql = "SELECT * FROM utenti WHERE email = :email";
+
+    // Prepara la query
+    $stmt = $pdo->prepare($sql);
+
+    // Esegui la query
+    $stmt->execute([
+        ':email' => $email,
+    ]);
+
+    // Estrai l'utente trovato (se presente)
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($user) {
+        // Verifica la password usando password_verify
+        if (password_verify($password, $user['password'])) {
+            // Utente autenticato con successo
+          
+            header("Location: homepage2.php?nome_utente=" . urlencode($user['nome'] . ' ' . $user['cognome']));
+            exit();
+            
+        } else {
+            // Credenziali errate
+            echo "Accesso negato. Controlla le credenziali.";
+        }
+    } else {
+        // Utente non trovato
+        echo "Utente non trovato. Controlla le credenziali.";
+    }
+
+    // Chiudi la connessione al database
+    $pdo = null;
+}
+?>
+
+
+
+
+
+
+
+
+
 
 
 <!doctype html>
@@ -34,18 +93,20 @@
     </nav>
     <h1 class="display-1 text-center">Accedi</h1>
     <p class="display-5 text-center">Inserisci le tue credenziali.</p>
-    <form action="utente/login_session.php" class="mt-4">
+
+    
+    <form method="post"  class="mt-4">
         
         <div class="mb-3">
             <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" name="email" required><br>
+            <input type="email"   class="form-control" name="email" required><br>
         </div>
         <div class="mb-3">
             <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control" name="password" required><br>
+            <input type="password"   class="form-control" name="password" required><br>
         </div>
         
-        <a href="../homepage2.php" class="btn-reg mb-4">Accedi</a>
+        <button type="submit" href="../homepage2.php" class="btn-reg mb-4">Accedi</button>
     </form>
     <img class="img-fluid" src="/samantha-borges-EeS69TTPQ18-unsplash.jpg" alt="">
     

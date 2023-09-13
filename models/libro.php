@@ -1,10 +1,5 @@
 <?php
 
-
-
-
-
-
 class Libro
 {  
     private $conn;
@@ -59,29 +54,41 @@ class Libro
     }
     
 
-    function update() {
-        $query = "UPDATE libri SET titolo = :titolo, autore = :autore, anno_pubblicazione = :anno_pubblicazione, scadenza = :scadenza WHERE id = :id";
-
-        
+    public function update() {
+        // Verifica che l'ID del libro sia stato impostato
+        if (!$this->id) {
+            return false;
+        }
+    
+        // Crea la query di aggiornamento
+        $query = "UPDATE " . $this->table_name . "
+                  SET titolo = :titolo, autore = :autore, anno_pubblicazione = :anno_pubblicazione, scadenza = :scadenza
+                  WHERE id = :id";
+    
         try {
+            // Prepara la query
             $stmt = $this->conn->prepare($query);
-            
+    
+            // Associa i parametri
             $stmt->bindParam(":id", $this->id);
             $stmt->bindParam(":titolo", $this->titolo);
             $stmt->bindParam(":autore", $this->autore);
             $stmt->bindParam(":anno_pubblicazione", $this->anno_pubblicazione);
             $stmt->bindParam(":scadenza", $this->scadenza);
-            
+    
+            // Esegui la query di aggiornamento
             if ($stmt->execute()) {
                 return true;
             }
-            
+    
             return false;
         } catch (PDOException $e) {
             echo "Errore durante l'aggiornamento del libro: " . $e->getMessage();
             return false;
         }
     }
+    
+    
     
 
     function delete() {

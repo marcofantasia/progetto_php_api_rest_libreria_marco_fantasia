@@ -1,3 +1,27 @@
+<?php
+require_once 'config/database.php';
+
+$database = new Database();
+$conn = $database->getConnection();
+
+if (!empty($_POST)) {
+    $nome = $_POST["nome"];
+    $cognome = $_POST["cognome"];
+    $email = $_POST["email"];
+    $password = password_hash($_POST["password"], PASSWORD_BCRYPT); // Hash della password
+
+    // Inserisci l'utente nel database
+    $query = "INSERT INTO utenti (nome, cognome, email, password) VALUES (?, ?, ?, ?)";
+    $stmt = $conn->prepare($query);
+    $stmt->execute([$nome, $cognome, $email, $password]);
+
+    // Reindirizza all'area di login
+    header("Location: ../login.php");
+    exit();
+}
+?>
+
+
 
 
 
@@ -35,7 +59,7 @@
     </nav>
     <h1 class="display-1 text-center">Area registrazione</h1>
     <p class="display-5 text-center">Unisciti a noi.</p>
-    <form action="utente/register_session.php" class="mt-4">
+    <form method="post"  action="" class="mt-4">
         <div class="mb-3">
             <label for="nome" class="form-label">Nome</label>
             <input type="text" class="form-control" name="nome"required><br>
@@ -54,7 +78,7 @@
             <input type="password" class="form-control" name="password" required><br>
         </div>
         
-        <button type="submit" href="../homepage.php" class="btn-reg mb-4">Registrati</button>
+        <button type="submit" href="../login.php" class="btn-reg mb-4">Registrati</button>
     </form>
     <img class="img-fluid" src="/samantha-borges-EeS69TTPQ18-unsplash.jpg" alt="">
     <footer class="text-center text-lg-start text-muted">

@@ -1,57 +1,3 @@
-<?php
-session_start(); 
-
-
-if (isset($_SESSION["user_id"])) {
-    
-    $user_id = $_SESSION["user_id"]; 
-
-    
-    $host = "localhost";
-    $db_name = "libreria";
-    $username_db = "root";
-    $password_db = "rootroot";
-
-    try {
-        $conn = new PDO("mysql:host=$host;dbname=$db_name", $username_db, $password_db);
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-        
-        $query = "SELECT nome FROM utenti WHERE id = :user_id";
-        $stmt = $conn->prepare($query);
-        $stmt->bindParam(":user_id", $user_id);
-        $stmt->execute();
-
-        if ($stmt->rowCount() > 0) {
-            $row = $stmt->fetch(PDO::FETCH_ASSOC);
-            $nome_utente = $row["nome"];
-            $messaggio_benvenuto = "Benvenuto, $nome_utente!";
-        } else {
-            
-            $messaggio_benvenuto = "Benvenuto!";
-        }
-    } catch (PDOException $e) {
-        echo "Errore di connessione al database: " . $e->getMessage();
-        
-    }
-
-    
-    if (isset($_POST["logout"])) {
-        
-        session_destroy();
-        header("Location: login.php");
-        exit();
-    }
-} else {
-   
-    $messaggio_benvenuto = "Benvenuto!";
-}
-?>
-
-
-
-
-
 
 
 
@@ -88,22 +34,21 @@ if (isset($_SESSION["user_id"])) {
 </div>
 
 <div class="container-fluid justify-content-center">
-<a class="btn btn-register" href="../register.php">Registrati</a>
-<a class="btn btn-login" href="../login.php">Accedi</a>
+<?php
+if(isset($_GET['nome_utente'])){
+    $nomeUtente = $_GET['nome_utente'];
+    echo "<h3>Benvenuto, $nomeUtente!</h3>";
+} else {
+    echo "Nome utente non disponibile.";
+}
+?>
+<a class="btn btn-login mx-3 mb-1" href="../logout.php">Esci</a>
+
 </div>
 
 </nav>
-<h3><?php echo $messaggio_benvenuto ?></h3>
-<?php if (isset($_SESSION["user_id"])): ?>
-       
-        <p>Nome utente: <?php echo $nome_utente; ?></p>
-        <form method="post">
-            <input type="submit" name="logout" value="Logout">
-        </form>
-    <?php else: ?>
-        
-        <p>Non sei loggato.</p>
-    <?php endif; ?>
+
+
 
 <h1 class="display-1 text-center">LibroSmart</h1>
 <p class="display-5 text-center">La tua libreria, un passo avanti.</p>

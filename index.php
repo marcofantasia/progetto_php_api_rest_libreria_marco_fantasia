@@ -47,15 +47,28 @@ function create($db) {
 }
 
 function update($db) {
-    
+    // Leggi l'ID del libro da aggiornare dalla richiesta PUT
+    $id = $_GET['id'] ?? null;
+
+    if (!$id) {
+        http_response_code(400);
+        echo json_encode(array("message" => "ID del libro mancante."));
+        return;
+    }
+
+    // Leggi i dati di aggiornamento dal corpo della richiesta JSON
     $data = json_decode(file_get_contents("php://input"));
 
-  
+    if (!$data) {
+        http_response_code(400);
+        echo json_encode(array("message" => "Dati di aggiornamento mancanti o non validi."));
+        return;
+    }
+
+    // Esegui l'aggiornamento dei dati del libro
     $query = "UPDATE libri SET titolo = :titolo, autore = :autore, anno_pubblicazione = :anno_pubblicazione, scadenza = :scadenza WHERE id = :id";
     $stmt = $db->prepare($query);
-
-    // Associa i valori dei parametri
-    $stmt->bindParam(":id", $data->id);
+    $stmt->bindParam(":id", $id);
     $stmt->bindParam(":titolo", $data->titolo);
     $stmt->bindParam(":autore", $data->autore);
     $stmt->bindParam(":anno_pubblicazione", $data->anno_pubblicazione);
@@ -67,6 +80,7 @@ function update($db) {
         echo json_encode(array("message" => "Errore durante l'aggiornamento del libro."));
     }
 }
+
 
 function delete($db) {
     // Leggi l'ID del libro da eliminare dalla richiesta DELETE

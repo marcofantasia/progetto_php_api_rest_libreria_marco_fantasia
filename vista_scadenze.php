@@ -31,8 +31,7 @@
 </div>
 
 <div class="container-fluid justify-content-center">
-<a class="btn btn-register" href="../register.php">Registrati</a>
-<a class="btn btn-login" href="../login.php">Accedi</a>
+
 </div>
 
 </nav>
