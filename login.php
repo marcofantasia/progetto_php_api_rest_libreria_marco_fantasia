@@ -1,6 +1,6 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Connessione al database (sostituisci con le tue credenziali)
+    
     try {
         $pdo = new PDO('mysql:host=localhost;dbname=libreria', 'root', 'rootroot');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -9,42 +9,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
-    // Dati inviati dal modulo
+    
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    // Query SQL per trovare l'utente
+   
     $sql = "SELECT * FROM utenti WHERE email = :email";
 
-    // Prepara la query
+    
     $stmt = $pdo->prepare($sql);
 
-    // Esegui la query
+   
     $stmt->execute([
         ':email' => $email,
     ]);
 
-    // Estrai l'utente trovato (se presente)
+   
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($user) {
-        // Verifica la password usando password_verify
+        
         if (password_verify($password, $user['password'])) {
-            // Utente autenticato con successo
+           
           
             header("Location: homepage2.php?nome_utente=" . urlencode($user['nome'] . ' ' . $user['cognome']));
             exit();
             
         } else {
-            // Credenziali errate
+            
             echo "Accesso negato. Controlla le credenziali.";
         }
     } else {
-        // Utente non trovato
+        
         echo "Utente non trovato. Controlla le credenziali.";
     }
 
-    // Chiudi la connessione al database
+    
     $pdo = null;
 }
 ?>

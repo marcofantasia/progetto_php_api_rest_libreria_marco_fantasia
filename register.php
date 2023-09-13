@@ -8,14 +8,14 @@ if (!empty($_POST)) {
     $nome = $_POST["nome"];
     $cognome = $_POST["cognome"];
     $email = $_POST["email"];
-    $password = password_hash($_POST["password"], PASSWORD_BCRYPT); // Hash della password
+    $password = password_hash($_POST["password"], PASSWORD_BCRYPT); 
 
-    // Inserisci l'utente nel database
+    
     $query = "INSERT INTO utenti (nome, cognome, email, password) VALUES (?, ?, ?, ?)";
     $stmt = $conn->prepare($query);
     $stmt->execute([$nome, $cognome, $email, $password]);
 
-    // Reindirizza all'area di login
+    
     header("Location: ../login.php");
     exit();
 }

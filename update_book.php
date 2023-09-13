@@ -17,20 +17,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $autore = $_POST['autore'];
         $anno_pubblicazione = $_POST['anno_pubblicazione'];
         $scadenza = $_POST['scadenza'];
-        $id = $_POST['id']; // L'ID del libro da aggiornare
+        $id = $_POST['id']; 
 
         $update_query = "UPDATE libri SET titolo = :titolo, autore = :autore, anno_pubblicazione = :anno_pubblicazione, scadenza = :scadenza WHERE id = :id";
 
         $stmt = $conn->prepare($update_query);
 
-        // Associa i valori dei parametri
+       
         $stmt->bindParam(':titolo', $titolo);
         $stmt->bindParam(':autore', $autore);
         $stmt->bindParam(':anno_pubblicazione', $anno_pubblicazione);
         $stmt->bindParam(':scadenza', $scadenza);
         $stmt->bindParam(':id', $id);
 
-        // Esegui la query
+        
         if ($stmt->execute()) {
             header("Location: ../homepage.php");
             echo "Libro aggiornato con successo!";
@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 } elseif (isset($_GET['id'])) {
     $id = $_GET['id'];
 
-    // Recupera le informazioni sul libro dalla tabella
+    
     $select_query = "SELECT * FROM libri WHERE id = :id";
     $stmt = $conn->prepare($select_query);
     $stmt->bindParam(':id', $id);
@@ -136,7 +136,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <img class="img-fluid" src="/ed-robertson-eeSdJfLfx1A-unsplash.jpg" alt="">
 
 <footer class="text-center text-lg-start text-muted">
-<!-- Section: Social media -->
+
 <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
 
 <div>
