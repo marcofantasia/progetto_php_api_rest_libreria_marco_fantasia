@@ -39,7 +39,7 @@
 <h1 class="display-1 text-center">Last minute</h1>
 <p class="display-5 text-center">Affrettati, mancano gli ultimi giorni per questi libri!</p>
 <p class="display-5 text-center">Scorri per vederli.</p>
-<img class="img-fluid" src="/last minute.webp" alt="">
+<img class="img-fluid" src="/age-barros-rBPOfVqROzY-unsplash.jpg" alt="">
 
 
 <table class="table table-hover" id="bookred-table">

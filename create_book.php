@@ -49,7 +49,7 @@ if (isset($_GET['titolo']) && isset($_GET['autore']) && isset($_GET['anno_pubbli
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title>LibroSmart</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="style/homepage.css">
 </head>
@@ -74,7 +74,7 @@ if (isset($_GET['titolo']) && isset($_GET['autore']) && isset($_GET['anno_pubbli
             </div>
         </div>
     </nav>
-    <h1 class="display-1 text-center">Inserisci tuo libro</h1>
+    <h1 class="display-1 text-center">Inserisci il tuo libro</h1>
     <p class="display-5 text-center">Condividi con noi la tua fame di cultura</p>
     <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" class="mt-4">
         <div class="mb-3">

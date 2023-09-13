@@ -32,7 +32,7 @@ class Libro
     }
 
     function create() {
-        $query = "INSERT INTO " . $this->table_name . " (titolo, autore, anno_pubblicazione) VALUES (:titolo, :autore, :anno_pubblicazione)";
+        $query = "INSERT INTO " . $this->table_name . " (titolo, autore, anno_pubblicazione, scadenza) VALUES (:titolo, :autore, :anno_pubblicazione, :scadenza)";
         
         try {
             $stmt = $this->conn->prepare($query);

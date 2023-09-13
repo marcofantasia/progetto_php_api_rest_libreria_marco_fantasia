@@ -1,37 +1,26 @@
 <?php
+// delete.php
 
-header("Content-Type: application/json");
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: DELETE"); 
-header("Access-Control-Max-Age: 3600");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+$id = $_GET['id']; // Assicurati di validare e sanificare l'input.
 
-include_once '../config/database.php';
-include_once '../models/libro.php';
+// Connessione al database utilizzando PDO (sostituisci con la tua configurazione).
+try {
+    $pdo = new PDO('mysql:host=localhost;dbname=libreria', 'root', 'rootroot');
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-$database = new Database();
-$db = $database->getConnection();
+    $query = "DELETE FROM libri WHERE id = :id";
+    $stmt = $pdo->prepare($query);
 
-$libro = new Libro($db);
+    $stmt->bindParam(':id', $id);
 
-$data = json_decode(file_get_contents("php://input"));
-
-if ($data !== null && !empty($data->titolo)) {
-    $libro->titolo = $data->titolo;
-
-    if ($libro->delete($id)) {
-        http_response_code(200);
-        echo json_encode(array("risposta" => "Il libro è stato eliminato"));
+    if ($stmt->execute()) {
+        http_response_code(204); // Nessun contenuto (successo senza risposta)
     } else {
-        http_response_code(503); // 503 service unavailable
-        echo json_encode(array("risposta" => "Impossibile eliminare il libro."));
+        http_response_code(500); // Errore del server
+        echo json_encode(['message' => 'Errore durante l\'eliminazione del libro']);
     }
-} else {
-    http_response_code(400); // 400 bad request
-    echo json_encode(array("risposta" => "Impossibile eliminare il libro, titolo mancante."));
+} catch (PDOException $e) {
+    http_response_code(500); // Errore del server
+    echo json_encode(['message' => 'Errore nel database: ' . $e->getMessage()]);
 }
-
-$conn = null;
-
 ?>
-

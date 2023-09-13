@@ -8,8 +8,8 @@ header("Content-Type: application/json");
 header("Access-Control-Allow-Origin: *");
 
 
-include_once 'config/database.php';
-include_once 'models/libro.php';
+include_once '../config/database.php';
+include_once '../models/libro.php';
 
 
 
