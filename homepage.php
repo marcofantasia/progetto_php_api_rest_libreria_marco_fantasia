@@ -131,11 +131,11 @@ try {
  
   <section class="">
     <div class="container text-center text-md-start mt-5">
-      <!-- Grid row -->
+      
       <div class="row mt-3">
-        <!-- Grid column -->
+       
         <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-          <!-- Content -->
+          
           <h6 class="text-uppercase fw-bold mb-4">
             <i class="fas fa-gem me-3"></i>Su di noi
           </h6>
@@ -143,9 +143,7 @@ try {
            Abbiamo deciso di fare un salto verso il futuro, mixando la cultura con la tecnologia. Un futuro sempre più grande, fatto di innovazione e di speranze per un mondo migliore.
           </p>
         </div>
-        <!-- Grid column -->
-
-        <!-- Grid column -->
+        
         <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
           <!-- Links -->
           <h6 class="text-uppercase fw-bold mb-4">
@@ -164,29 +162,19 @@ try {
             PHP e API RESTful 
           </p>
         </div>
-        <!-- Grid column -->
-
-        <!-- Grid column -->
         
-        <!-- Grid column -->
-
-        <!-- Grid column -->
-        
-        <!-- Grid column -->
       </div>
-      <!-- Grid row -->
+     
     </div>
   </section>
-  <!-- Section: Links  -->
-
-  <!-- Copyright -->
+  
   <div class="text-center p-4 parte-finale">
     © 2023 Copyright:
     <a class="text-reset fw-bold" href="https://mdbootstrap.com/">Marco Scalise Fantasia Junior Full Stack Web Developer</a>
   </div>
-  <!-- Copyright -->
+
 </footer>
-<!-- Footer -->
+
 <script src="readbooks.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </body>

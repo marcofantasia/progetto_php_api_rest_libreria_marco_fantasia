@@ -1,21 +1,21 @@
 
 <?php
-// Includi la classe Database
+
 include_once 'config/database.php';
 include_once 'models/libro.php';
 
 
 
-// Istanzia la classe Database
+
 $database = new Database();
 
-// Ottieni una connessione al database
+
 $db = $database->getConnection();
 
-// Ottieni l'endpoint richiesto dalla URL
+
 $endpoint = $_GET['endpoint'] ?? '';
 
-// Definisci le funzioni API
+
 
 function read($db) {
     $query = "SELECT * FROM libri";
@@ -47,7 +47,7 @@ function create($db) {
 }
 
 function update($db) {
-    // Leggi l'ID del libro da aggiornare dalla richiesta PUT
+   
     $id = $_GET['id'] ?? null;
 
     if (!$id) {
@@ -56,7 +56,7 @@ function update($db) {
         return;
     }
 
-    // Leggi i dati di aggiornamento dal corpo della richiesta JSON
+  
     $data = json_decode(file_get_contents("php://input"));
 
     if (!$data) {
@@ -65,7 +65,7 @@ function update($db) {
         return;
     }
 
-    // Esegui l'aggiornamento dei dati del libro
+    
     $query = "UPDATE libri SET titolo = :titolo, autore = :autore, anno_pubblicazione = :anno_pubblicazione, scadenza = :scadenza WHERE id = :id";
     $stmt = $db->prepare($query);
     $stmt->bindParam(":id", $id);
@@ -83,7 +83,7 @@ function update($db) {
 
 
 function delete($db) {
-    // Leggi l'ID del libro da eliminare dalla richiesta DELETE
+    
     $id = $_GET['id'] ?? null;
 
     if (!$id) {
@@ -103,7 +103,7 @@ function delete($db) {
     }
 }
 
-// Associa gli endpoint alle funzioni API
+
 $apiFunctions = [
     'read' => 'read',
     'create' => 'create',
@@ -111,9 +111,8 @@ $apiFunctions = [
     'delete' => 'delete'
 ];
 
-// Verifica se l'endpoint richiesto è valido
 if (isset($apiFunctions[$endpoint])) {
-    // Chiama la funzione API corrispondente
+    
     $apiFunction = $apiFunctions[$endpoint];
     $apiFunction($db);
 } else {
@@ -123,10 +122,9 @@ if (isset($apiFunctions[$endpoint])) {
 }
 
 
-// Includi il file di configurazione (config.php)
 
 
-// Controlla il percorso della richiesta
+
 
 ?>
 

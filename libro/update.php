@@ -1,18 +1,18 @@
 <?php
-// update.php
 
-$id = $_GET['id']; // Assicurati di validare e sanificare l'input.
+
+$id = $_GET['id']; 
 
 $input = file_get_contents('php://input');
 $data = json_decode($input, true);
 
 if ($data === null) {
-    http_response_code(400); // Richiesta non valida
+    http_response_code(400);
     echo json_encode(['message' => 'Dati JSON non validi']);
     exit();
 }
 
-// Connessione al database utilizzando PDO (sostituisci con la tua configurazione).
+
 try {
     $pdo = new PDO('mysql:host=localhost;dbname=libreria', 'root', 'rootroot');
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -27,14 +27,14 @@ try {
     $stmt->bindParam(':id', $id);
 
     if ($stmt->execute()) {
-        http_response_code(200); // Successo
+        http_response_code(200); 
         echo json_encode(['message' => 'Libro aggiornato con successo']);
     } else {
-        http_response_code(500); // Errore del server
+        http_response_code(500); 
         echo json_encode(['message' => 'Errore durante l\'aggiornamento del libro']);
     }
 } catch (PDOException $e) {
-    http_response_code(500); // Errore del server
+    http_response_code(500); 
     echo json_encode(['message' => 'Errore nel database: ' . $e->getMessage()]);
 }
 ?>

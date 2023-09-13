@@ -31,13 +31,13 @@ if(
         echo json_encode(array("message" => "Libro creato correttamente."));
     }
     else{
-        //503 servizio non disponibile
+        
         http_response_code(503);
         echo json_encode(array("message" => "Impossibile creare il libro."));
     }
 }
 else{
-    //400 bad request
+    
     http_response_code(400);
     echo json_encode(array("message" => "Impossibile creare il libro, i dati sono incompleti."));
 }

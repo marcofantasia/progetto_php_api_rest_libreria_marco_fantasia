@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Funzione per caricare i libri nella tabella
+    
     function fetchBooks() {
         const xhr = new XMLHttpRequest();
         xhr.open("GET", "read.php", true);
@@ -12,12 +12,12 @@ document.addEventListener("DOMContentLoaded", function () {
         xhr.send();
     }
 
-    // Funzione per visualizzare i libri nella tabella
+    
     function displayBooks(libri) {
         const tableBody = document.getElementById("book-table");
-        tableBody.innerHTML = ""; // Pulisce la tabella prima di riempirla con nuovi dati
+        tableBody.innerHTML = ""; 
 
-        // Cicla attraverso i libri e li aggiunge alla tabella
+        
         libri.forEach(function (libro) {
             const row = document.createElement("tr");
             row.innerHTML = `
@@ -36,6 +36,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Inizialmente, carica i libri nella tabella
+   
     fetchBooks();
 });

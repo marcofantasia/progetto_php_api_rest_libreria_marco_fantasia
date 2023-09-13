@@ -69,12 +69,12 @@ try {
   $conn = new PDO("mysql:host=$host;dbname=$db_name", $username, $password);
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   
-  // Query SQL per recuperare i dati dei libri
+  
   $query = "SELECT * FROM libri";
   $result = $conn->query($query);
   
   if ($result !== false) {
-    // La query è stata eseguita con successo
+   
     echo '<table class="table table-hover">';
     
     
@@ -95,7 +95,7 @@ try {
     
     echo '</table>';
   } else {
-    // La query ha fallito, gestisci l'errore
+    
     echo "Errore nella query SQL: " . $conn->error;
   }
 } catch (PDOException $e) {
@@ -132,18 +132,18 @@ try {
         <i class="fab fa-github"></i>
       </a>
     </div>
-    <!-- Right -->
+    
   </section>
-  <!-- Section: Social media -->
+  
 
-  <!-- Section: Links  -->
+  
   <section class="">
     <div class="container text-center text-md-start mt-5">
-      <!-- Grid row -->
+      
       <div class="row mt-3">
-        <!-- Grid column -->
+       
         <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-          <!-- Content -->
+          
           <h6 class="text-uppercase fw-bold mb-4">
             <i class="fas fa-gem me-3"></i>Su di noi
           </h6>
@@ -153,7 +153,7 @@ try {
         </div>
         
         <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-          <!-- Links -->
+          
           <h6 class="text-uppercase fw-bold mb-4">
             Linguaggi e programmi
           </h6>

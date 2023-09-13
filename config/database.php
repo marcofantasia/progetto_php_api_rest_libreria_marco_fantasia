@@ -3,13 +3,13 @@
 
 class Database
 	{
-	// credenziali
+	
 	private $host = "localhost";
 	private $db_name = "libreria";
 	private $username = "root";
 	private $password = "rootroot";
 	public $conn;
-	// connessione al database
+	
 	public function getConnection()
 		{
 		$this->conn = null;

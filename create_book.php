@@ -25,13 +25,13 @@ if (isset($_GET['titolo']) && isset($_GET['autore']) && isset($_GET['anno_pubbli
     
     $stmt = $conn->prepare($insert_query);
 
-    // Associa i valori dei parametri
+  
     $stmt->bindParam(':titolo', $titolo);
     $stmt->bindParam(':autore', $autore);
     $stmt->bindParam(':anno_pubblicazione', $anno_pubblicazione);
     $stmt->bindParam(':scadenza', $scadenza);
 
-    // Esegui la query
+    
     if ($stmt->execute()) {
         header("Location: ../homepage.php");
         echo "Libro inserito con successo!";
