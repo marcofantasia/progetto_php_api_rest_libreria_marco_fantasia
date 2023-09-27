@@ -30,7 +30,7 @@ function create($db) {
     $data = json_decode(file_get_contents("php://input"));
 
     
-    $query = "INSERT INTO libri (titolo, autore, anno_pubblicazione, scadenza) VALUES (:titolo, :autore, :anno_pubblicazione, :scadenza)";
+    $query = "INSERT INTO libri (titolo, autore, anno_pubblicazione, scadenza, categoria) VALUES (:titolo, :autore, :anno_pubblicazione, :scadenza, :categoria)";
     $stmt = $db->prepare($query);
 
     
@@ -38,6 +38,7 @@ function create($db) {
     $stmt->bindParam(":autore", $data->autore);
     $stmt->bindParam(":anno_pubblicazione", $data->anno_pubblicazione);
     $stmt->bindParam(":scadenza", $data->scadenza);
+    $stmt->bindParam(":categoria, $data->categoria");
 
     if ($stmt->execute()) {
         echo json_encode(array("message" => "Libro creato con successo."));
@@ -66,13 +67,14 @@ function update($db) {
     }
 
     
-    $query = "UPDATE libri SET titolo = :titolo, autore = :autore, anno_pubblicazione = :anno_pubblicazione, scadenza = :scadenza WHERE id = :id";
+    $query = "UPDATE libri SET titolo = :titolo, autore = :autore, anno_pubblicazione = :anno_pubblicazione, scadenza = :scadenza, categoria = :categoria WHERE id = :id";
     $stmt = $db->prepare($query);
     $stmt->bindParam(":id", $id);
     $stmt->bindParam(":titolo", $data->titolo);
     $stmt->bindParam(":autore", $data->autore);
     $stmt->bindParam(":anno_pubblicazione", $data->anno_pubblicazione);
     $stmt->bindParam(":scadenza", $data->scadenza);
+    $stmt->bindParam(":categoria", $data->categoria)
 
     if ($stmt->execute()) {
         echo json_encode(array("message" => "Libro aggiornato con successo."));

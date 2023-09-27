@@ -12,14 +12,15 @@ try {
 }
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    if (isset($_POST['titolo']) && isset($_POST['autore']) && isset($_POST['anno_pubblicazione']) && isset($_POST['scadenza'])) {
+    if (isset($_POST['titolo']) && isset($_POST['autore']) && isset($_POST['anno_pubblicazione']) && isset($_POST['scadenza']) && isset($_POST['categoria'])) {
         $titolo = $_POST['titolo'];
         $autore = $_POST['autore'];
         $anno_pubblicazione = $_POST['anno_pubblicazione'];
         $scadenza = $_POST['scadenza'];
+        $categoria = $_POST['categoria'];
         $id = $_POST['id']; 
 
-        $update_query = "UPDATE libri SET titolo = :titolo, autore = :autore, anno_pubblicazione = :anno_pubblicazione, scadenza = :scadenza WHERE id = :id";
+        $update_query = "UPDATE libri SET titolo = :titolo, autore = :autore, anno_pubblicazione = :anno_pubblicazione, scadenza = :scadenza, categoria = :categoria WHERE id = :id";
 
         $stmt = $conn->prepare($update_query);
 
@@ -28,6 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $stmt->bindParam(':autore', $autore);
         $stmt->bindParam(':anno_pubblicazione', $anno_pubblicazione);
         $stmt->bindParam(':scadenza', $scadenza);
+        $stmt->bindParam(':categoria', $categoria);
         $stmt->bindParam(':id', $id);
 
         
@@ -55,6 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $autore = $row['autore'];
         $anno_pubblicazione = $row['anno_pubblicazione'];
         $scadenza = $row['scadenza'];
+        $categoria = $row['categoria'];
     } else {
         echo "Libro non trovato.";
         exit;
@@ -94,6 +97,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <a class="nav-link" href="../create_book.php">Inserisci libro</a>
 </li>
 <li class="nav-item">
+                        <a class="nav-link" href="../category.php">Categorie Libri</a>
+                    </li>
+<li class="nav-item">
 <a class="nav-link" href="../homepage.php">Torna alla home</a>
 </li>
 
@@ -129,6 +135,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <div class="mb-3">
 <label for="scadenza" class="form-label">Scadenza</label>
 <input type="date" value="<?php echo $scadenza; ?>"  class="form-control" name="scadenza" required><br>
+</div>
+<div class="mb-3">
+<label for="categoria" class="form-label">Categoria</label>
+<input type="text" value="<?php echo $categoria; ?>"  class="form-control" name="categoria" required><br>
 </div>
 
 <button type="submit" href="../homepage.php" class="btn-reg mb-4">Aggiorna</button>

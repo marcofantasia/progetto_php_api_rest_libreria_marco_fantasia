@@ -10,6 +10,7 @@ class Libro
     public $autore;
     public $anno_pubblicazione;
     public $scadenza;
+    public $categoria;
     // costruttore
     public function __construct($db)
     {
@@ -20,7 +21,7 @@ class Libro
   
     // READ libri
     function read() {
-        $query = "SELECT titolo, autore, anno_pubblicazione, scadenza FROM " . $this->table_name;
+        $query = "SELECT titolo, autore, anno_pubblicazione, scadenza, categoria FROM " . $this->table_name;
         
         try {
             $stmt = $this->conn->prepare($query);
@@ -32,7 +33,7 @@ class Libro
     }
 
     function create() {
-        $query = "INSERT INTO " . $this->table_name . " (titolo, autore, anno_pubblicazione, scadenza) VALUES (:titolo, :autore, :anno_pubblicazione, :scadenza)";
+        $query = "INSERT INTO " . $this->table_name . " (titolo, autore, anno_pubblicazione, scadenza, categoria) VALUES (:titolo, :autore, :anno_pubblicazione, :scadenza, :categoria)";
         
         try {
             $stmt = $this->conn->prepare($query);
@@ -41,6 +42,7 @@ class Libro
             $stmt->bindParam(":autore", $this->autore);
             $stmt->bindParam(":anno_pubblicazione", $this->anno_pubblicazione);
             $stmt->bindParam(":scadenza", $this->scadenza);
+            $stmt->bindParam(":categoria", $this->categoria);
             
             if ($stmt->execute()) {
                 return true;
@@ -62,7 +64,7 @@ class Libro
     
         // Crea la query di aggiornamento
         $query = "UPDATE " . $this->table_name . "
-                  SET titolo = :titolo, autore = :autore, anno_pubblicazione = :anno_pubblicazione, scadenza = :scadenza
+                  SET titolo = :titolo, autore = :autore, anno_pubblicazione = :anno_pubblicazione, scadenza = :scadenza, categoria = :categoria
                   WHERE id = :id";
     
         try {
@@ -75,6 +77,7 @@ class Libro
             $stmt->bindParam(":autore", $this->autore);
             $stmt->bindParam(":anno_pubblicazione", $this->anno_pubblicazione);
             $stmt->bindParam(":scadenza", $this->scadenza);
+            $stmt->bindParam(":categoria", $this->categoria);
     
             // Esegui la query di aggiornamento
             if ($stmt->execute()) {

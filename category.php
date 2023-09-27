@@ -1,10 +1,4 @@
 
-
-
-
-
-
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -29,7 +23,7 @@
 <a class="nav-link" aria-current="page" href="../vista_scadenze.php">Last minute</a>
 </li>
 <li class="nav-item">
-<a class="nav-link" aria-current="page" href="../category.php">Categorie libri</a>
+<a class="nav-link" aria-current="page" href="../homepage.php">Torna alla home</a>
 </li>
 <li class="nav-item">
 <a class="nav-link" href="../create_book.php">Inserisci libro</a>
@@ -40,71 +34,72 @@
 </div>
 </div>
 
-<div class="container-fluid justify-content-center">
-<a class="btn btn-register" href="../register.php">Registrati</a>
-<a class="btn btn-login" href="../login.php">Accedi</a>
-</div>
+
 
 </nav>
 
-<h1 class="display-1 text-center">LibroSmart</h1>
-<p class="display-5 text-center">La tua libreria, un passo avanti.</p>
-<p class="display-5 text-center">Scorri per vedere i libri.</p>
-<img class="img-fluid" src="/paul-melki-bByhWydZLW0-unsplash.jpg" alt="">
-<table class="table table-hover" id="book-table">
-<tr class="justify-content-center">
-<h1 class="display-3 text-center">I nostri libri</h1>
-</tr>
-<tbody>
-<?php
-$host = "localhost";
-$db_name = "libreria";
-$username = "root";
-$password = "rootroot";
+<h1 class="display-1 text-center">Categorie libri</h1>
+<p class="display-5 text-center">Scegli il tuo libro in base alle tue preferenze.</p>
 
-try {
-  $conn = new PDO("mysql:host=$host;dbname=$db_name", $username, $password);
-  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  
-  
-  $query = "SELECT * FROM libri";
-  $result = $conn->query($query);
-  
-  if ($result !== false) {
-    
-    echo '<table class="table table-hover">';
-    
-    
-    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-      echo '<tr>';
-      echo '<td>' . $row['id'] . '</td>';
-      echo '<td>' . $row['titolo'] . '</td>';
-      echo '<td>' . $row['autore'] . '</td>';
-      echo '<td>' . $row['anno_pubblicazione'] . '</td>';
-      echo '<td>' . $row['scadenza'] . '</td>';
-      echo '<td>' . $row['categoria'] . '</td>';
-      echo '<td>';
-      echo '<a class="bottone" href="update_book.php?id=' . $row['id'] . '">Modifica</a>';
-      echo '<a class="bottone mx-5" href="delete_book.php?id=' . $row['id'] . '">Elimina</a>';
-      ;
-      echo '</td>';
-      echo '</tr>';
+<img class="img-fluid" src="/tom-hermans-9BoqXzEeQqM-unsplash.jpg" alt="">
+
+<?php
+
+include_once 'config/database.php';
+
+
+include_once 'models/libro.php';
+
+$database = new Database();
+$db = $database->getConnection();
+$libro = new Libro($db);
+
+
+$categorie = ["Fantasia", "Romanzo", "Azione", "Giallo"];
+
+
+
+
+foreach ($categorie as $categoria) {
+    echo "<h2>Categoria: $categoria</h2>";
+
+   
+    $sql = "SELECT * FROM libri WHERE categoria = :categoria";
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(':categoria', $categoria, PDO::PARAM_STR);
+
+    try {
+        // Esegui la query
+        $stmt->execute();
+
+       
+        $libri = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if (count($libri) > 0) {
+            echo '<table class="table table-hover">';
+            
+            foreach ($libri as $libro) {
+                echo "<tr>";
+                echo "<td>" . $libro["titolo"] . "</td>";
+                echo "<td>" . $libro["autore"] . "</td>";
+                echo "<td>" . $libro["anno_pubblicazione"] . "</td>";
+                echo "<td>" . $libro["scadenza"] . "</td>";
+                echo "<td>" . $libro["categoria"] . "</td>";
+                echo "</tr>";
+            }
+            echo "</table>";
+        } else {
+            echo "Nessun libro trovato in questa categoria.";
+        }
+    } catch (PDOException $e) {
+        
+        die("Errore durante l'esecuzione della query: " . $e->getMessage());
     }
-    
-    echo '</table>';
-  } else {
-    
-    echo "Errore nella query SQL: " . $conn->error;
-  }
-} catch (PDOException $e) {
-  echo "Errore nella connessione al database: " . $e->getMessage();
 }
 
 
-?>
-</tbody>
-</table>
 
+?>
 
 <footer class="text-center text-lg-start text-muted">
 

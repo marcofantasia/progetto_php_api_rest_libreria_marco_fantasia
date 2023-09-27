@@ -19,12 +19,14 @@ if(
     !empty($data->titolo) &&
     !empty($data->autore) &&
     !empty($data->anno_pubblicazione) &&
-    !empty($data->scadenza)
+    !empty($data->scadenza) &&
+    !empty($data->categoria)
 ){
     $libro->titolo = $data->titolo;
     $libro->autore = $data->autore;
     $libro->anno_pubblicazione = $data->anno_pubblicazione;
     $libro->scadenza = $data->scadenza;
+    $libro->categoria = $data->categoria;
  
     if($libro->create()){
         http_response_code(201);

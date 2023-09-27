@@ -17,13 +17,14 @@ try {
     $pdo = new PDO('mysql:host=localhost;dbname=libreria', 'root', 'rootroot');
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $query = "UPDATE libri SET titolo = :titolo, autore = :autore, anno_pubblicazione = :anno_pubblicazione, scadenza = :scadenza WHERE id = :id";
+    $query = "UPDATE libri SET titolo = :titolo, autore = :autore, anno_pubblicazione = :anno_pubblicazione, scadenza = :scadenza, categoria = :categoria WHERE id = :id";
     $stmt = $pdo->prepare($query);
 
     $stmt->bindParam(':titolo', $data['titolo']);
     $stmt->bindParam(':autore', $data['autore']);
     $stmt->bindParam(':anno_pubblicazione', $data['anno_pubblicazione']);
     $stmt->bindParam(':scadenza', $data['scadenza']);
+    $stmt->bindParam(':categoria', $data['categoria']);
     $stmt->bindParam(':id', $id);
 
     if ($stmt->execute()) {

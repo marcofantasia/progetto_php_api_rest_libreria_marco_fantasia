@@ -76,6 +76,15 @@ try {
     echo "Errore durante l'aggiunta della colonna: " . $e->getMessage();
 }
 
+$add_column_query = "ALTER TABLE libri ADD COLUMN categoria VARCHAR(255)";
+try {
+    $conn->exec($add_column_query);
+    echo "Colonna 'categoria' aggiunta con successo!";
+} catch (PDOException $e) {
+    echo "Errore durante l'aggiunta della colonna: " . $e->getMessage();
+}
+
+
 
 
 $conn = null;

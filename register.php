@@ -52,6 +52,9 @@ if (!empty($_POST)) {
                     <li class="nav-item">
                         <a class="nav-link" href="../homepage.php">Torna alla home</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../category.php">Categorie libri</a>
+                    </li>
                     
                 </ul>
             </div>

@@ -34,6 +34,7 @@ try {
         echo "<td>" . $row['titolo'] . "</td>";
         echo "<td>" . $row['autore'] . "</td>";
         echo "<td>" . $row['anno_pubblicazione'] . "</td>";
+        echo "<td>" . $row['categoria'] . "</td>";
         echo "<td $scadenza_in_rosso>" . $row['scadenza'] . "</td>";
         echo "</tr>";
     }

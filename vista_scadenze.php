@@ -24,6 +24,9 @@
 <li class="nav-item">
 <a class="nav-link" href="../create_book.php">Inserisci libro</a>
 </li>
+<li class="nav-item">
+<a class="nav-link" href="../category.php">Categorie Libri</a>
+</li>
 
 
 </ul>
@@ -78,6 +81,7 @@ try {
         echo '<td>' . $row['titolo'] . '</td>';
         echo '<td>' . $row['autore'] . '</td>';
         echo '<td>' . $row['anno_pubblicazione'] . '</td>';
+        echo "<td>" . $row['categoria'] . "</td>";
         echo '<td style="color: red;">' . $row['scadenza'] . '</td>';
         echo '</tr>';
     }

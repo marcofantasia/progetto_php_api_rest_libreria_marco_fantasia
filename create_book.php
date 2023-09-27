@@ -18,9 +18,10 @@ if (isset($_GET['titolo']) && isset($_GET['autore']) && isset($_GET['anno_pubbli
     $autore = $_GET['autore'];
     $anno_pubblicazione = $_GET['anno_pubblicazione'];
     $scadenza = $_GET['scadenza'];
+    $categoria = $_GET['categoria'];
 
     
-    $insert_query = "INSERT INTO libri (titolo, autore, anno_pubblicazione, scadenza) VALUES (:titolo, :autore, :anno_pubblicazione, :scadenza)";
+    $insert_query = "INSERT INTO libri (titolo, autore, anno_pubblicazione, scadenza, categoria) VALUES (:titolo, :autore, :anno_pubblicazione, :scadenza, :categoria)";
 
     
     $stmt = $conn->prepare($insert_query);
@@ -30,6 +31,7 @@ if (isset($_GET['titolo']) && isset($_GET['autore']) && isset($_GET['anno_pubbli
     $stmt->bindParam(':autore', $autore);
     $stmt->bindParam(':anno_pubblicazione', $anno_pubblicazione);
     $stmt->bindParam(':scadenza', $scadenza);
+    $stmt->bindParam(':categoria', $categoria);
 
     
     if ($stmt->execute()) {
@@ -69,6 +71,10 @@ if (isset($_GET['titolo']) && isset($_GET['autore']) && isset($_GET['anno_pubbli
                     <li class="nav-item">
                         <a class="nav-link" href="../homepage.php">Torna alla home</a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="../category.php">Categorie libri</a>
+                    </li>
                     
                 </ul>
             </div>
@@ -93,6 +99,10 @@ if (isset($_GET['titolo']) && isset($_GET['autore']) && isset($_GET['anno_pubbli
         <div class="mb-3">
             <label for="scadenza" class="form-label">Scadenza</label>
             <input type="date" class="form-control" name="scadenza" required><br>
+        </div>
+        <div class="mb-3">
+            <label for="categoria" class="form-label">Categoria</label>
+            <input type="text" class="form-control" name="categoria" required><br>
         </div>
         
         <button type="submit" href="homepage.php" class="btn-reg mb-4">Inserisci</button>

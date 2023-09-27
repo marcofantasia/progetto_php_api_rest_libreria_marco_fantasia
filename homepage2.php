@@ -25,6 +25,9 @@
 <a class="nav-link" aria-current="page" href="../vista_scadenze.php">Last minute</a>
 </li>
 <li class="nav-item">
+<a class="nav-link" aria-current="page" href="../category.php">Categorie Libri</a>
+</li>
+<li class="nav-item">
 <a class="nav-link" href="../create_book.php">Inserisci libro</a>
 </li>
 
@@ -85,6 +88,7 @@ try {
       echo '<td>' . $row['autore'] . '</td>';
       echo '<td>' . $row['anno_pubblicazione'] . '</td>';
       echo '<td>' . $row['scadenza'] . '</td>';
+      echo '<td>' . $row['categoria'] . '</td>';
       echo '<td>';
       echo '<a class="bottone" href="update_book.php?id=' . $row['id'] . '">Modifica</a>';
       echo '<a class="bottone mx-5" href="delete_book.php?id=' . $row['id'] . '">Elimina</a>';
